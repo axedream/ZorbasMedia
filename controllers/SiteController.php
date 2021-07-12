@@ -3,13 +3,15 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
+use app\models\Action;
+use app\models\ActionSeacrh;
 use yii\web\Controller;
-use yii\web\Response;
+use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
 
+/**
+ * SiteController implements the CRUD actions for Action model.
+ */
 class SiteController extends Controller
 {
     /**
@@ -18,111 +20,57 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    'delete' => ['POST'],
                 ],
             ],
         ];
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
-        ];
-    }
-
-    /**
-     * Displays homepage.
-     *
-     * @return string
+     * Lists all Action models.
+     * @return mixed
      */
     public function actionIndex()
     {
-        return $this->render('index');
-    }
+        $searchModel = new ActionSeacrh();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-    /**
-     * Login action.
-     *
-     * @return Response|string
-     */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-
-        $model->password = '';
-        return $this->render('login', [
-            'model' => $model,
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Logout action.
-     *
-     * @return Response
+     * Displays a single Action model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionLogout()
+    public function actionView($id)
     {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
-    }
-
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
+        return $this->render('view', [
+            'model' => $this->findModel($id),
         ]);
     }
 
+
     /**
-     * Displays about page.
-     *
-     * @return string
+     * Finds the Action model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Action the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionAbout()
+    protected function findModel($id)
     {
-        return $this->render('about');
+        if (($model = Action::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

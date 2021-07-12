@@ -22,12 +22,26 @@ use Yii;
  */
 class Action extends \yii\db\ActiveRecord
 {
+
+    public $date_created_stop,$date_created_start;
+
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
         return 'action';
+    }
+
+
+    public static function getStatusText()
+    {
+        return
+            [
+                1=>"На проверке",
+                2=>"Подтверждено",
+                3=>"Отклонено"
+            ];
     }
 
     /**
