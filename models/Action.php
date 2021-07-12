@@ -51,11 +51,12 @@ class Action extends \yii\db\ActiveRecord
     {
         return [
             [['tid', 'pub_id'], 'required'],
-            [['tid', 'status', 'pub_id', 'subid1', 'subid2', 'subid3', 'subid4', 'subid5'], 'integer'],
+            [['tid', 'status', 'pub_id'], 'integer'],
             [['date_created', 'date_closed'], 'safe'],
             [['sale_id'], 'string', 'max' => 255],
             [['tid'], 'unique'],
             [['sale_id'], 'unique'],
+            [['subid1', 'subid2', 'subid3', 'subid4', 'subid5'],'safe']
         ];
     }
 
@@ -79,4 +80,52 @@ class Action extends \yii\db\ActiveRecord
             'subid5' => 'Subid5',
         ];
     }
+
+    public function getSubid1s()
+    {
+        if (Subid::find()->where(['id'=>$this->subid1,'type'=>1])->exists()) {
+            $model = Subid::find()->where(['id'=>$this->subid1,'type'=>1])->one();
+            return $model;
+        }
+        return false;
+    }
+
+    public function getSubid2s()
+    {
+        if (Subid::find()->where(['id'=>$this->subid2,'type'=>2])->exists()) {
+            $model = Subid::find()->where(['id'=>$this->subid2,'type'=>2])->one();
+            return $model;
+        }
+        return false;
+    }
+
+    public function getSubid3s()
+    {
+        if (Subid::find()->where(['id'=>$this->subid3,'type'=>3])->exists()) {
+            $model = Subid::find()->where(['id'=>$this->subid3,'type'=>3])->one();
+            return $model;
+        }
+        return false;
+    }
+
+    public function getSubid4s()
+    {
+        if (Subid::find()->where(['id'=>$this->subid4,'type'=>4])->exists()) {
+            $model = Subid::find()->where(['id'=>$this->subid4,'type'=>4])->one();
+            return $model;
+        }
+        return false;
+    }
+
+    public function getSubid5s()
+    {
+        if (Subid::find()->where(['id'=>$this->subid5,'type'=>5])->exists()) {
+            $model = Subid::find()->where(['id'=>$this->subid5,'type'=>5])->one();
+            return $model;
+        }
+        return false;
+    }
+
+
+
 }

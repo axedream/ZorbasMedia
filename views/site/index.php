@@ -6,6 +6,7 @@ use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use kartik\date\DatePicker;
 use app\models\Action;
+use app\models\Subid;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ActionSeacrh */
@@ -28,6 +29,125 @@ $status=[
 
     }
 ];
+
+$b1=[
+    'attribute'=>'subid1',
+    'headerOptions' => ['width' => '150px'],
+    'filter' => Select2::widget([
+        'model' => $searchModel,
+        'attribute' => 'subid1',
+        'data' => ArrayHelper::map(Subid::find()->where(['type'=>1])->asArray()->all(), 'id', 'keyword'),
+        'theme' => Select2::THEME_BOOTSTRAP,
+        'hideSearch' => false,
+        'options' => [
+            'placeholder' => '',
+            'multiple' => true,
+        ],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]),
+    'content'=>function($data){
+        $out = ($data->subid1s) ? $data->subid1s->keyword : "<div class='wrong'>(не задан)</div>";
+        return $out;
+    }
+];
+
+$b2=[
+    'attribute'=>'subid2',
+    'headerOptions' => ['width' => '150px'],
+    'filter' => Select2::widget([
+        'model' => $searchModel,
+        'attribute' => 'subid2',
+        'data' => ArrayHelper::map(Subid::find()->where(['type'=>2])->asArray()->all(), 'id', 'keyword'),
+        'theme' => Select2::THEME_BOOTSTRAP,
+        'hideSearch' => false,
+        'options' => [
+            'placeholder' => '',
+            'multiple' => true,
+        ],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]),
+    'content'=>function($data){
+        $out = ($data->subid2s) ? $data->subid2s->keyword : "<div class='wrong'>(не задан)</div>";
+        return $out;
+    }
+];
+
+$b3=[
+    'attribute'=>'subid3',
+    'headerOptions' => ['width' => '150px'],
+    'filter' => Select2::widget([
+        'model' => $searchModel,
+        'attribute' => 'subid3',
+        'data' => ArrayHelper::map(Subid::find()->where(['type'=>3])->asArray()->all(), 'id', 'keyword'),
+        'theme' => Select2::THEME_BOOTSTRAP,
+        'hideSearch' => false,
+        'options' => [
+            'placeholder' => '',
+            'multiple' => true,
+        ],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]),
+
+    'content'=>function($data){
+        $out = ($data->subid3s) ? $data->subid3s->keyword : "<div class='wrong'>(не задан)</div>";
+        return $out;
+    }
+];
+
+$b4=[
+    'attribute'=>'subid4',
+    'headerOptions' => ['width' => '150px'],
+    'filter' => Select2::widget([
+        'model' => $searchModel,
+        'attribute' => 'subid4',
+        'data' => ArrayHelper::map(Subid::find()->where(['type'=>4])->asArray()->all(), 'id', 'keyword'),
+        'theme' => Select2::THEME_BOOTSTRAP,
+        'hideSearch' => false,
+        'options' => [
+            'placeholder' => '',
+            'multiple' => true,
+        ],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]),
+    'content'=>function($data){
+        $out = ($data->subid4s) ? $data->subid4s->keyword : "<div class='wrong'>(не задан)</div>";
+        return $out;
+    }
+];
+
+$b5=[
+    'attribute'=>'subid5',
+    'headerOptions' => ['width' => '150px'],
+    'filter' => Select2::widget([
+        'model' => $searchModel,
+        'attribute' => 'subid5',
+        'data' => ArrayHelper::map(Subid::find()->where(['type'=>5])->asArray()->all(), 'id', 'keyword'),
+        'theme' => Select2::THEME_BOOTSTRAP,
+        'hideSearch' => false,
+        'options' => [
+            'placeholder' => '',
+            'multiple' => true,
+        ],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]),
+
+    'content'=>function($data){
+        $out = ($data->subid5s) ? $data->subid5s->keyword : "<div class='wrong'>(не задан)</div>";
+        return $out;
+    }
+];
+
+
 
 $sale_id  = [
     'label' => 'sale_id',
@@ -107,11 +227,11 @@ $created = [
             'pub_id',
             $created,
             'date_closed',
-            'subid1',
-            'subid2',
-            'subid3',
-            'subid4',
-            'subid5',
+            $b1,
+            $b2,
+            $b3,
+            $b4,
+            $b5,
         ],
     ]); ?>
 
