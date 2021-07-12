@@ -10,6 +10,7 @@
 </ul>
 
  /** SQL **/
+ <code>
 create table action
 (
 
@@ -37,23 +38,24 @@ create unique index sale
 create unique index tid
     on action (tid);
 
-create table subid
-(
-    id      int auto_increment primary key,
-    pub_id  int          not null,
-    keyword varchar(255) not null,
-    type    tinyint(1)   not null
-)
-    collate = utf8_unicode_ci;
 
-/**
-  Связи таблиц:
-  action.subid1 => subid.id (type = 1)
-  action.subid2 => subid.id (type = 2)
-  action.subid3 => subid.id (type = 3)
-  action.subid4 => subid.id (type = 4)
-  action.subid5 => subid.id (type = 5)
- */
+create table subid<br>
+(<br>
+    id      int auto_increment primary key,<br>
+    pub_id  int          not null,<br>
+    keyword varchar(255) not null,<br>
+    type    tinyint(1)   not null<br>
+)<br>
+    collate = utf8_unicode_ci;<br>
 
-SQL таблицы должны заполняться фейковыми данными через консольную команду
+<br>
+  Связи таблиц:<br>
+  action.subid1 => subid.id (type = 1)<br>
+  action.subid2 => subid.id (type = 2)<br>
+  action.subid3 => subid.id (type = 3)<br>
+  action.subid4 => subid.id (type = 4)<br>
+  action.subid5 => subid.id (type = 5)<br>
+ <br>
+</code>
+SQL таблицы должны заполняться фейковыми данными через консольную команду<br>
  /** SQL **/
